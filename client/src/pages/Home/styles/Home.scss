@@ -1,0 +1,40 @@
+@mixin flex-center-center-column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.home {
+
+    width: 100vw;
+    height: 100vh;
+
+
+    @include flex-center-center-column;
+
+
+    &__wrapper {
+        @include flex-center-center-column;
+        background-color: #fff;
+
+        border-radius: 25px;
+
+        padding: 25px;
+    }
+
+
+    &__title {
+        text-align: center;
+    }
+
+    &__buttons {
+        @include flex-center-center-column;
+
+        padding: 1rem 0 0;
+
+        button {
+            width: 100%;
+        }
+    }
+}

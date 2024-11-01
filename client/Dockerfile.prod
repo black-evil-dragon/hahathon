@@ -1,0 +1,14 @@
+FROM node:18-alpine AS build
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm cache clean --force
+
+RUN npm ci --omit=dev
+RUN npm install --save-dev react-app-rewired
+
+COPY . .
+
+RUN npm run build --verbose
