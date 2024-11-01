@@ -1,0 +1,54 @@
+.order-list {
+
+    padding: 1rem;
+
+    &__wrapper {
+        width: 700px;
+
+        background-color: #fff;
+        border-radius: 15px;
+
+        padding: 1rem;
+    }
+
+    &__title {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    &__items {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    &__item {
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+
+
+        &--content-info {
+            display: flex;
+            align-items: center;
+            text-align: center;
+
+            .content-info {
+                flex: 1;
+                margin-right: 10px;
+        
+                &.--date {
+                    flex: 0;
+                    min-width: 85px;
+                }
+            }
+        }
+
+        
+        &:not(:last-child) {
+            border-bottom: 1px solid #212029;
+        }
+
+        div {
+            margin: 0.2rem 0;
+        }
+    }
+}

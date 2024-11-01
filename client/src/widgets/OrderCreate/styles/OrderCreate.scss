@@ -1,0 +1,29 @@
+.order-create {
+
+    
+    padding: 25px;
+    &__form {
+        width: 300px;
+        background-color: #fff;
+        
+        
+    }
+    .form {
+
+        border-radius: 15px;
+        padding: 1rem 2rem;
+
+        &__title {
+            font-size: 1.2rem;
+        }
+
+        &__section {
+            padding: 1rem 0;
+            &-name {
+                font-size: .9rem;
+                color: #2c2c2c;
+                margin: 0 0 5px;
+            }
+        }
+    }
+}

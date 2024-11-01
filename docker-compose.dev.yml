@@ -6,7 +6,7 @@ services:
       context: ./client
       dockerfile: Dockerfile.dev
     ports:
-      - "3000:3000"
+      - "3000:80"
   nginx:
     image: nginx:alpine
     volumes:
@@ -16,11 +16,17 @@ services:
     depends_on:
       - client
 
-# Soon
-  # backend:
-  #   build:
-  #     context: ./backend
-  #   ports:
-  #     - "5000:5000"
-  #   networks:
-  #     - app-network
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
+    environment:
+    - NODE_ENV=production
+
+networks:
+  app-network:
+    driver: bridge
