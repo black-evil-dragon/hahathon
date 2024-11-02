@@ -36,7 +36,7 @@ const OrderCreate: React.FunctionComponent<OrderCreateProps> = () => {
     const submitForm = async () => {
         if (userPhone && userStreet && userHome) {
             try {
-                const response = await axios.post(`${process.env.REACT_APP_API_URL}/order/create`, {
+                const response = await axios.post(`http://localhost:8000/api/order/create`, {
                     phone: userPhone,
                     street: userStreet,
                     home: userHome,
@@ -59,7 +59,7 @@ const OrderCreate: React.FunctionComponent<OrderCreateProps> = () => {
     }   
 
     const getMap = async () => {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/map`)
+        const response = await axios.get(`http://localhost:8000/api/map`)
 
         if (response.status === 200) {
             setStreetSuggestions(response.data.allStreets)

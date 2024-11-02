@@ -50,7 +50,7 @@ const Map: React.FunctionComponent = () => {
     React.useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios(`${process.env.REACT_APP_API_URL}/map`)
+                const response = await axios(`https://localhost:8000/api/map`)
                 const data = await response.data;
                 setMapData(data);
             } catch (err: any) {

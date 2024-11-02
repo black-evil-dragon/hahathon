@@ -43,7 +43,7 @@ const initMap = ({ N, M }) => {
   }
   for (let j = 1; j <= MapData.grid.cols + 1; j++) {
     MapData.streets.vertical.push({ name: `V${j}` });
-    MapData.allStreets.push(`H${j}`);
+    MapData.allStreets.push(`V${j}`);
   }
 
   // Генерация кварталов и зданий с адресами
