@@ -26,47 +26,29 @@ const OrderCreate: React.FunctionComponent<OrderCreateProps> = () => {
     const [userPhone, setUserPhone] = React.useState('')
     const [userStreet, setUserStreet] = React.useState('')
     const [userHome, setUserHome] = React.useState('')
-
-    const [formFields, setFormFields] = React.useState<InputProps[] | null>([
-        {
-            name: "phone",
-            type: "tel",
-            placeholder: "Номер телефона",
-            onChange: (newValue: string) => setUserPhone(newValue),
-            required: true,
-
-        },
-        {
-            name: "street",
-            placeholder: "Улица",
-            onChange: (newValue: string) => setUserStreet(newValue),
-            required: true,
-            suggestions: ["Улица Ленина", "Улица Гагарина", "Улица Пушкина"],
-            strictSuggestions: true,
-            
-        },
-        {
-            name: "home",
-            type: 'number',
-            placeholder: "Номер дома",
-            onChange: (newValue: string) => setUserHome(newValue),
-            required: true,
-        },
-    ])
-
+    const [streetSuggestions, setStreetSuggestions] = React.useState<string[] | undefined>()
+    const [error, setError] = React.useState<undefined | {
+        text: string,
+        type: string,
+    }>()
 
 
     const submitForm = async () => {
         if (userPhone && userStreet && userHome) {
             try {
-                const response = await axios.post('http://localhost:8000/api/orders', {
+                const response = await axios.post(`${process.env.REACT_APP_API_URL}/order/create`, {
                     phone: userPhone,
                     street: userStreet,
                     home: userHome,
                 });
 
-                if (response.status === 201) {
+                if (response.data.success) {
                     setSuccess(true);
+                } else {
+                    setError({
+                        text: response.data.error.text,
+                        type: response.data.error.type
+                    })
                 }
             } catch (error) {
                 console.error('Ошибка при создании заказа:', error);
@@ -74,7 +56,20 @@ const OrderCreate: React.FunctionComponent<OrderCreateProps> = () => {
             // dispatch(addOrder({ phone: userPhone, street: userStreet, home: userHome }));
             // setSuccess(true)
         }
+    }   
+
+    const getMap = async () => {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/map`)
+
+        if (response.status === 200) {
+            setStreetSuggestions(response.data.allStreets)
+        }
+        
     }
+
+    React.useEffect(() => {
+        getMap()
+    }, [])
 
 
     return (<>
@@ -92,11 +87,28 @@ const OrderCreate: React.FunctionComponent<OrderCreateProps> = () => {
                         </div>
 
                         <div className="form__inputs">
-                            {formFields && formFields.map((field, fieldIndex) => (
-                                <Input key={`input-${fieldIndex}`} {...{...field,
-                                    // any args
-                                }} />
-                            ))}
+                            <Input {...{
+                                name: "phone",
+                                type: "tel",
+                                placeholder: "Номер телефона",
+                                onChange: (newValue: string) => setUserPhone(newValue),
+                                required: true,
+                            }} />
+                            <Input {...{
+                                name: "street",
+                                placeholder: "Улица",
+                                onChange: (newValue: string) => setUserStreet(newValue),
+                                required: true,
+                                suggestions: streetSuggestions,
+                                strictSuggestions: true,
+                            }} />
+                            <Input {...{
+                                name: "home",
+                                type: 'number',
+                                placeholder: "Номер дома",
+                                onChange: (newValue: string) => setUserHome(newValue),
+                                required: true,
+                            }} />
                         </div>
                     </div>
 
@@ -104,6 +116,13 @@ const OrderCreate: React.FunctionComponent<OrderCreateProps> = () => {
                         callback: submitForm,
                         className: '--dark'
                     }}>Создать заказ</Button>
+                    {
+                        error && <div>
+                            <span className={`${error.type}`}>
+                                {error.text}
+                            </span>
+                        </div>
+                    }
                 </>:<>
                     <div className="form__section form__success">
                         Отлично! Теперь вы можете перейти в <Link to={'/client/order/list'}>список своих заказов</Link> или создать еще, обновив страницу.

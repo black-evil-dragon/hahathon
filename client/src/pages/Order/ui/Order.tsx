@@ -24,7 +24,7 @@ const Order: React.FunctionComponent<OrderProps> = () => {
     return (
         orderView === 'create' ? <OrderCreate /> :
         orderView === 'list' ? <OrderList /> :
-        <NoPage />
+        orderView ? <NoPage /> : <></>
         
     );
 }

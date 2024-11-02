@@ -50,7 +50,7 @@ const OrderList: React.FunctionComponent = () => {
         <div className="order-list">
             <div className="order-list__wrapper">
                 <div className="order-list__title">
-                    Ваши заказы
+                    Заказы
                 </div>
                 {orders.length === 0 ? (
                     <p>Заказов нет</p>

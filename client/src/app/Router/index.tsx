@@ -7,6 +7,7 @@ import { Home } from '@pages/Home';
 import { NoPage } from '@pages/404';
 import { Client } from '@pages/Client';
 import { Order } from '@pages/Order';
+import { Admin } from '@pages/Admin';
 
 
 
@@ -21,9 +22,11 @@ function Routing() {
                     {/* Pages */}
                     {/* -- Client page */}
                     <Route path="/client" element={<Client />} />
-
-                    {/* --- Order actions */}
                     <Route path="/client/order/:orderAction" element={<Order />} />
+
+                    {/* -- Admin page */}
+                    <Route path="/admin" element={<Admin />} />
+
 
                     {/*     ... */}
 
