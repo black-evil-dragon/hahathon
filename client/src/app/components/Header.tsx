@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 
 import { RootState } from "@stores";
 import { Link, useLocation } from 'react-router-dom';
+import Logo from '@assets/img/logo.png'
 
 function Header(props: {
     parent: {
@@ -27,6 +28,9 @@ function Header(props: {
     return (
     <>
         <div className={`${props.parent.className}__content`}>
+                <div className={`${props.parent.className}__item ${props.parent.className}__logo --logo`}>
+                <img src={ Logo } alt="" />
+            </div>
             <div className={`${props.parent.className}__item`}>
                 <Link to={'/'}>Главная</Link>
             </div>

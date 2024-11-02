@@ -1,3 +1,4 @@
+import { Map } from "@widgets/Map";
 import { OrderList } from "@widgets/OrderList";
 
 interface AdminProps {
@@ -15,7 +16,7 @@ const Admin: React.FunctionComponent<AdminProps> = () => {
                     </div>
 
                     <div className="admin-page__element">
-                        <OrderList />
+                        <Map />
                     </div>
                 </div>
             </div>
