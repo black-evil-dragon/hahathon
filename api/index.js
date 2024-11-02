@@ -33,14 +33,17 @@ const initMap = ({ N, M }) => {
     blocks: [],
     startPoint: null,
     clients: [],
+    allStreets: [],
   };
 
   // Генерация названий улиц
   for (let i = 1; i <= MapData.grid.rows + 1; i++) {
     MapData.streets.horizontal.push({ name: `H${i}` });
+    MapData.allStreets.push(`H${i}`);
   }
   for (let j = 1; j <= MapData.grid.cols + 1; j++) {
     MapData.streets.vertical.push({ name: `V${j}` });
+    MapData.allStreets.push(`H${j}`);
   }
 
   // Генерация кварталов и зданий с адресами
@@ -95,7 +98,11 @@ const initMap = ({ N, M }) => {
     address: MapData.blocks[0][1].buildings[3].address, // Здание 4 в квартале B0-1
   });
 
-  return MapData;
+  allStreets = MapData.allStreets
+
+  return {
+    ...MapData,
+  };
 };
 
 app.get("/api/map", (req, res) => {
